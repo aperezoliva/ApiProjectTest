@@ -22,10 +22,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    MainScreen()
                 }
             }
         }
+    }
+
+    private fun MainScreen() {
+        TODO("Not yet implemented")
     }
 }
 
