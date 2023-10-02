@@ -27,36 +27,33 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    sendRequest()
+                    sendRequest("3030-86329")
                 }
             }
         }
     }
 
 
-    private fun sendRequest(
-    ) {
+//    https://www.digitalocean.com/community/tutorials/retrofit-android-example-tutorial
+    private fun sendRequest(gameId: String) {
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://dummyjson.com")
+            .baseUrl("https://www.giantbomb.com")
             .build()
             .create(SteamApi::class.java)
 
-        val retrofitData = retrofitBuilder.getData()
 
-        retrofitData.enqueue(object: Callback<List<ProfileModel>?> {
-            override fun onResponse(call: Call<List<ProfileModel>?>, response: Response<List<ProfileModel>?>) {
+        val retrofitData = retrofitBuilder.getData(gameId)
+
+        retrofitData.enqueue(object: Callback<ProfileModel?> {
+            override fun onResponse(call: Call<ProfileModel?>, response: Response<ProfileModel?>) {
                 if(response.isSuccessful) {
-                    val responseBody = response.body()!!
-
-                    for (myData in responseBody) {
-                        Log.d("Main", "success! " + myData.todo)
-                    }
-
+                    val responseBody = response.body()
+                    Log.d("Main", "success! " + response.body().toString())
                 }
             }
 
-            override fun onFailure(call: Call<List<ProfileModel>?>, t: Throwable) {
+            override fun onFailure(call: Call<ProfileModel?>, t: Throwable) {
                 Log.d("Main",  t.message.toString())
             }
         })
