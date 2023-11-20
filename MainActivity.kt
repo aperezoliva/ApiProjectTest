@@ -13,37 +13,37 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-//    https://www.digitalocean.com/community/tutorials/retrofit-android-example-tutorial
-    private fun sendRequest(ctx: Context, gameName: MutableState<TextFieldValue>, responseReturn: MutableList<MutableList<String>>) {
-        val BASE_URL = "https://www.giantbomb.com"
-
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(GameApi::class.java)
-
-
-        val retrofitData = retrofitBuilder.getData("JSON", "name:" + gameName.value.text)
-
-        retrofitData.enqueue(object: Callback<ProfileModel?> {
-            override fun onResponse(call: Call<ProfileModel?>, response: Response<ProfileModel?>) {
-                if(response.isSuccessful) {
-                    Toast.makeText(ctx,"Successfully retrieved data from Giant Bomb", Toast.LENGTH_SHORT).show()
-                    val responseBody = response.body()
-                    responseReturn.clear()
-                    responseBody?.results?.forEach {it ->
-                        val tempList = mutableListOf(it.gameName, it.gameDescription, it.gameReleaseDate)
-                        responseReturn.add(tempList)
-                    }
-
-                    Log.d("Main", "success! " + gameName.value.text + "Response: " + responseReturn.toString())
-
-                }
-            }
-
-            override fun onFailure(call: Call<ProfileModel?>, t: Throwable) {
-                Log.d("Main",  t.message.toString())
-            }
-        })
-    }
+////    https://www.digitalocean.com/community/tutorials/retrofit-android-example-tutorial
+//    private fun sendRequest(ctx: Context, gameName: MutableState<TextFieldValue>, responseReturn: MutableList<MutableList<String>>) {
+//        val BASE_URL = "https://www.giantbomb.com"
+//
+//        val retrofitBuilder = Retrofit.Builder()
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .baseUrl(BASE_URL)
+//            .build()
+//            .create(GameApi::class.java)
+//
+//
+//        val retrofitData = retrofitBuilder.getData("JSON", "name:" + gameName.value.text)
+//
+//        retrofitData.enqueue(object: Callback<ProfileModel?> {
+//            override fun onResponse(call: Call<ProfileModel?>, response: Response<ProfileModel?>) {
+//                if(response.isSuccessful) {
+//                    Toast.makeText(ctx,"Successfully retrieved data from Giant Bomb", Toast.LENGTH_SHORT).show()
+//                    val responseBody = response.body()
+//                    responseReturn.clear()
+//                    responseBody?.results?.forEach {it ->
+//                        val tempList = mutableListOf(it.gameName, it.gameDescription, it.gameReleaseDate)
+//                        responseReturn.add(tempList)
+//                    }
+//
+//                    Log.d("Main", "success! " + gameName.value.text + "Response: " + responseReturn.toString())
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ProfileModel?>, t: Throwable) {
+//                Log.d("Main",  t.message.toString())
+//            }
+//        })
+//    }
